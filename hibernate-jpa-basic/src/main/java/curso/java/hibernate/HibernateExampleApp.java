@@ -2,6 +2,7 @@ package curso.java.hibernate;
 
 import curso.java.hibernate.data.EmployeeRepository;
 import curso.java.hibernate.data.entity.Employee;
+import curso.java.hibernate.data.entity.Scope;
 import curso.java.hibernate.data.entity.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +30,7 @@ public class HibernateExampleApp implements CommandLineRunner {
   }
 
   @Override
-  public void run(String... args) throws Exception
-  {
+  public void run(String... args) throws Exception {
 
 
     Employee emp2 = new Employee();
@@ -39,6 +39,7 @@ public class HibernateExampleApp implements CommandLineRunner {
     emp2.setLastName("Simpson");
 
     emp2.setTasks(getTasks());
+
 
     repository.save(emp2);
     Optional<Employee> emp = repository.findById(2L);
@@ -50,16 +51,30 @@ public class HibernateExampleApp implements CommandLineRunner {
   private Set<Task> getTasks() {
 
     Set<Task> tasks = new HashSet<>();
+
+    // Crear ámbitos
+    Scope scope1 = new Scope();
+    scope1.setScopeName("Prioritario");
+    scope1.setScopeDescription("Es urgente terminarlo");
+
+    Scope scope2 = new Scope();
+    scope2.setScopeName("Secundario");
+    scope2.setScopeDescription("No es urgente terminarlo");
+
+    // Crear tarea 1 con su ámbito
     Task task1 = new Task();
     task1.setTaskName("report generation");
     task1.setTaskDescription("Daily report generation");
+    task1.setScope(scope1); // Asignar el ámbito creado anteriormente
     tasks.add(task1);
+
+    // Crear tarea 2 con su ámbito
     Task task2 = new Task();
     task2.setTaskName("view generation");
     task2.setTaskDescription("Daily view generation");
+    task2.setScope(scope2); // Asignar el ámbito creado anteriormente
     tasks.add(task2);
+
     return tasks;
   }
-
-
 }

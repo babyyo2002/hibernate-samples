@@ -32,7 +32,7 @@ public class Employee implements Serializable {
   @JoinColumn(name = "employeeId")
   private Set<Task> tasks = new HashSet<>();
 
-  public Integer getId() {
+    public Integer getId() {
     return id;
   }
 
@@ -69,7 +69,8 @@ public class Employee implements Serializable {
   public void setTasks(Set<Task> tasks) {
     this.tasks = tasks;
   }
-
+  public void setScopes(Set<Scope> scopes) {
+  }
   @Override
   public String toString() {
     return "Employee{" +
